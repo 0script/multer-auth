@@ -63,7 +63,12 @@ form#loginform{
 }
 
 input#name,
-input#password{
+input#email,
+input#phone,
+input#password,
+input#password2
+{
+	font-size: 15px;
 	width: 250px;
 	height: 30px;
 	margin: 5px;
@@ -72,6 +77,51 @@ input#password{
 	padding: 1px;
 }
 
+input#password{
+	transform: translateX(+10px);
+}
+
+i#visiblepassword{
+	font-size: 16px;
+	display: inline-block;
+	transform: translateX(-30px);
+}
+
+form div.input-group:nth-child(6)  label{
+	height: 3rem;
+	width: 3rem;
+	display: inline-block;
+	background-image: url('/images/profile.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	cursor: pointer;
+}
+
+form div.input-group:nth-child(6)  label:hover{
+	transform: scale(110%);
+}
+
+form div.input-group:nth-child(6)  label input{
+	display: none;
+}
+
 p.small{
 	font-size: 12px;
+}
+
+p.small-small{
+	font-size: 10px;
+}
+
+button.submit-btn{
+	cursor: pointer;
+	padding: 1rem;
+	border-radius: 15px;
+	font-weight: 700;
+	opacity: 0.8;
+}
+
+button.submit-btn:hover{
+	opacity: 1;
+	transform: scale(110%);
 }
