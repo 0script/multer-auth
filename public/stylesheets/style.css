@@ -110,7 +110,9 @@ p.small{
 }
 
 p.small-small{
+	width: 250px;
 	font-size: 10px;
+	text-align: center;
 }
 
 button.submit-btn{

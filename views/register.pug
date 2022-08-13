@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1.main-title= title
-  form#loginform(enctype="multipart/form-data")
+  form#loginform(method='post',enctype="multipart/form-data")
     .input-group
         label(for="name")
         input#name(
@@ -42,7 +42,7 @@ block content
                 multiple=""
                 type="file"
             )
-    p.small-small Select Profile Picture
+    p.small-small(id='profile-text') Select Profile Picture
     p.small 
         a(href='/login') I already have an account
     button.submit-btn(type="submit") Register
