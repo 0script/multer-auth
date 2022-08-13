@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1.main-title= title
+  form#loginform(enctype="multipart/form-data")
+    .input-group
+        label(for="name")
+        input#name(
+            placeholder="Enter your username" 
+            name="name"
+            )
+    .input-group
+        label(for="password")
+        input#password(
+            placeholder="Enter your password" 
+            name="password"
+            type="password"
+            )
+    p.small 
+        a(href='/register') I d'ont have a account.
+    button.submit-btn(type="submit") Upload
