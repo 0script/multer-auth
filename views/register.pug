@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1.main-title= title
+  form#loginform(enctype="multipart/form-data")
+    .input-group
+        label(for="name")
+        input#name(
+            placeholder="Enter your username" 
+            name="name"
+            )
+    .input-group
+        label(for="email")
+        input#name(
+            placeholder="Enter your mail address" 
+            name="email"
+            )
+    .input-group
+        label(for="phone")
+        input#name(
+            placeholder="Enter your phone number" 
+            name="phone"
+            )
+    .input-group
+        label(for="password")
+        input#password(
+            placeholder="Enter your password" 
+            name="password"
+            type="password"
+            )
+    .input-group
+        label(for="password2")
+        input#password(
+            placeholder="Repeat your password" 
+            name="password2"
+            type="password"
+            )
+    p.small 
+        a(href='/register') I d'ont have a account.
+    button.submit-btn(type="submit") Upload
+
+block script 
+    script(src='/javascripts/register.js',type='application/javascript')
