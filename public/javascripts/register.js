@@ -193,7 +193,7 @@ const register=async(e)=>{
 
     validateForm();
     
-    const url='localhost:3000/register';
+    const url='http://localhost:3000/register';
     
     try{
         
