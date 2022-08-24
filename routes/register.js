@@ -3,17 +3,20 @@ var router = express.Router();
 
 /* multer setting */
 const multer=require('multer');
-// const storage=multer.diskStorage({
-//     destination:function(req,file,cb){
-//         cb(null,'./uploads/profile-pics');
-//     },
-//     filename:function(req,res,cb){
-//         console.log('about to save file');
-//         const uniqueSuffix=Date.now
-//     }
-// });
-// const upload=multer({storage:storage});
-const upload=multer({dest:'uploads/'});
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log('set path');
+        cb(null, './uploads/profile-pics');
+    },
+    filename: function (req, file, cb) {
+        
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix);
+        console.log('saved');
+    }
+});
+const upload=multer({storage:storage});
+// const upload=multer({dest:'uploads/'});
 
 /* GET REGISTER PAGE */
 router.get('/', function(req, res, next) {
