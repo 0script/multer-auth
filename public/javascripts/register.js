@@ -162,15 +162,15 @@ const validateForm=()=>{
         forminputs[0].lastChild.remove();
     }
 
-    if(!validateEmail(email) && forminputs[1].lastChild.tagName!='P'){
-        let emailerror=document.createElement('p');
-        emailerror.classList.add('small-small');
-        emailerror.style.color='red';
-        emailerror.innerHTML='Email Address is not valid !';
-        forminputs[1].appendChild(emailerror);
-    }else if(validateEmail(email) && forminputs[1].lastChild.tagName=='P'){
-        forminputs[1].lastChild.remove();
-    }
+    // if(!validateEmail(email) && forminputs[1].lastChild.tagName!='P'){
+    //     let emailerror=document.createElement('p');
+    //     emailerror.classList.add('small-small');
+    //     emailerror.style.color='red';
+    //     emailerror.innerHTML='Email Address is not valid !';
+    //     forminputs[1].appendChild(emailerror);
+    // }else if(validateEmail(email) && forminputs[1].lastChild.tagName=='P'){
+    //     forminputs[1].lastChild.remove();
+    // }
 
     if(!validatePhone(phone) && forminputs[2].lastChild.tagName!='P'){
         let phoneerror=document.createElement('p');
