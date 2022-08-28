@@ -1,4 +1,3 @@
-const { json } = require('express');
 var express = require('express');
 var router = express.Router();
 var { check , validationResult }=require('express-validator');
@@ -52,9 +51,7 @@ router.post('/',upload.single('profiles'),validationchain,(req, res, next)=>{
                 jsontext+=`{"${result.param}":"${result.msg}"}`
         });
         jsontext+=']}';
-        console.log('Create json');
         const jsonobj=JSON.parse(jsontext);
-        console.log(jsonobj);
         res.end(JSON.stringify(jsonobj));
     }else{
         jsontext='{"formstatus":"valid","errors":[]}';
@@ -62,5 +59,4 @@ router.post('/',upload.single('profiles'),validationchain,(req, res, next)=>{
         res.end(JSON.stringify(jsonobj));
     }
 });
-
 module.exports = router;

@@ -156,7 +156,6 @@ const validateForm=()=>{
     let pass2=password2.value;
     let errors=false;
 
-
     cleanValidationErrors();
     if(name.length<5 && forminputs[0].lastChild.tagName!='P'){
         
@@ -241,8 +240,6 @@ const serverValidation=(jsonobj)=>{
 const register=async(e)=>{
     
     e.preventDefault();
-
-    //validateForm();
     
     const url='http://localhost:3000/register';
     
@@ -257,8 +254,6 @@ const register=async(e)=>{
             });
             
             const jsonresponse=await response.json();
-            
-            console.log(jsonresponse);
             
             if(jsonresponse.errors){
                 cleanValidationErrors();
