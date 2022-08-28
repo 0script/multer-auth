@@ -54,32 +54,30 @@ function hasDigit(str){
     return /[0-9]/g.test(str);
 }
 
-function cleanValidationError(){
+function cleanValidationErrors(){
 
-    console.log('cleaning');
-    if(forminputs[3].lastChild.tagName=='P'  )
-        forminputs[3].lastChild.remove();
-    
-    if(forminputs[4].lastChild.tagName=='P')
-        forminputs[4].lastChild.remove();
+    forminputs.forEach(input => {
+        if(input.lastChild.tagName=='P')
+            input.lastChild.remove();
+    });
+
 }
 
 /* validate password */
 function validatePassword(password1,password2){
     
     let validationerrors=0;
-
-    cleanValidationError();
+    let errors=false;
 
     if(password1.length<8){
         validationerrors+=1;
-        console.log(password1.length);
         /* display validation error message */
         lengtherror=document.createElement('p');
         lengtherror.classList.add('small-small');
         lengtherror.style.color='red';
         lengtherror.innerHTML='Must be at least 8 characters';
         forminputs[3].appendChild(lengtherror);
+        errors=true;
     }
     
     if(!hasLower(password1)){
@@ -94,6 +92,7 @@ function validatePassword(password1,password2){
             forminputs[3].append(haslowererror);
         else
             forminputs[4].append(haslowererror);
+        errors=(!errors?true:errors);
     }
     
     if(!hasUpper(password1) && validationerrors<2){
@@ -108,6 +107,7 @@ function validatePassword(password1,password2){
             forminputs[3].append(hasuppererror);
         else
             forminputs[4].append(hasuppererror);
+        errors=(!errors?true:errors);
     }
 
     if(!hasDigit(password1) && validationerrors<2){
@@ -122,6 +122,8 @@ function validatePassword(password1,password2){
             forminputs[3].append(hasdigiterror);
         else
             forminputs[4].append(hasdigiterror);
+    
+        errors=(!errors?true:errors);
     }
 
     if(password1!=password2 && validationerrors<2){
@@ -137,7 +139,10 @@ function validatePassword(password1,password2){
             forminputs[3].append(nomatcherror);
         else
             forminputs[4].append(nomatcherror);
+        errors=(!errors?true:errors);
     }
+
+    return errors;
 
 }
 
@@ -149,8 +154,10 @@ const validateForm=()=>{
     let phone=document.getElementById('phone').value;
     let pass1=password1.value;
     let pass2=password2.value;
-    
+    let errors=false;
 
+
+    cleanValidationErrors();
     if(name.length<5 && forminputs[0].lastChild.tagName!='P'){
         
         let nameerror=document.createElement('p');
@@ -158,19 +165,22 @@ const validateForm=()=>{
         nameerror.style.color='red';
         nameerror.innerHTML='Name must be at least 5 characters';
         forminputs[0].appendChild(nameerror);
+        errors=(!errors?true:errors);
     }else if(name.length>4 && forminputs[0].lastChild.tagName=='P'){
         forminputs[0].lastChild.remove();
+        
     }
 
-    // if(!validateEmail(email) && forminputs[1].lastChild.tagName!='P'){
-    //     let emailerror=document.createElement('p');
-    //     emailerror.classList.add('small-small');
-    //     emailerror.style.color='red';
-    //     emailerror.innerHTML='Email Address is not valid !';
-    //     forminputs[1].appendChild(emailerror);
-    // }else if(validateEmail(email) && forminputs[1].lastChild.tagName=='P'){
-    //     forminputs[1].lastChild.remove();
-    // }
+    if(!validateEmail(email) && forminputs[1].lastChild.tagName!='P'){
+        let emailerror=document.createElement('p');
+        emailerror.classList.add('small-small');
+        emailerror.style.color='red';
+        emailerror.innerHTML='Email Address is not valid !';
+        forminputs[1].appendChild(emailerror);
+        errors=(!errors?true:errors);
+    }else if(validateEmail(email) && forminputs[1].lastChild.tagName=='P'){
+        forminputs[1].lastChild.remove();
+    }
 
     if(!validatePhone(phone) && forminputs[2].lastChild.tagName!='P'){
         let phoneerror=document.createElement('p');
@@ -178,12 +188,53 @@ const validateForm=()=>{
         phoneerror.style.color='red';
         phoneerror.innerHTML='Enter valid phone number from rwanda !';
         forminputs[2].appendChild(phoneerror);
+        errors=(!errors?true:errors);
     }else if(validatePhone(phone) && forminputs[2].lastChild.tagName=='P'){
         forminputs[2].lastChild.remove();
     }
 
-    validatePassword(pass1,pass2);
+    errors=(validatePassword(pass1,pass2)?true:false);
+    return errors;    
+}
 
+const serverValidation=(jsonobj)=>{
+    
+    if(jsonobj.name && forminputs[0].lastChild.tagName!='P'){
+        
+        let nameerror=document.createElement('p');
+        nameerror.classList.add('small-small');
+        nameerror.style.color='red';
+        nameerror.innerHTML=jsonobj.name;
+        forminputs[0].appendChild(nameerror);
+    }
+    if(jsonobj.email && forminputs[1].lastChild.tagName!='P'){
+        let emailerror=document.createElement('p');
+        emailerror.classList.add('small-small');
+        emailerror.style.color='red';
+        emailerror.innerHTML=jsonobj.email;
+        forminputs[1].appendChild(emailerror);
+    }
+    if(jsonobj.phone && forminputs[2].lastChild.tagName!='P'){
+        let phoneerror=document.createElement('p');
+        phoneerror.classList.add('small-small');
+        phoneerror.style.color='red';
+        phoneerror.innerHTML=jsonobj.phone;
+        forminputs[2].appendChild(phoneerror);
+    }
+    if(jsonobj.password && forminputs[3].lastChild.tagName!='P'){
+        let passworderror=document.createElement('p');
+        passworderror.classList.add('small-small');
+        passworderror.style.color='red';
+        passworderror.innerHTML=jsonobj.password;
+        forminputs[3].appendChild(passworderror);
+    }
+    if(jsonobj.password2 && forminputs[4].lastChild.tagName!='P'){
+        let passworderror=document.createElement('p');
+        passworderror.classList.add('small-small');
+        passworderror.style.color='red';
+        passworderror.innerHTML=jsonobj.password2;
+        forminputs[4].appendChild(passworderror);
+    }
 }
 
 /* fetch api handle post request registration process */
@@ -191,23 +242,38 @@ const register=async(e)=>{
     
     e.preventDefault();
 
-    validateForm();
+    //validateForm();
     
     const url='http://localhost:3000/register';
     
-    try{
+    if(!validateForm()){
         
-        const formData=new FormData(form);
-        const response=await fetch(url,{
+        try{
+            const formData=new FormData(form);
+            const response=await fetch(url,{
+                
+                method: 'POST',
+                body: formData
+            });
             
-            method: 'POST',
-            body: formData
-        });
-        
-        console.log(response);
-    }catch(error){
-        
-        console.error(error);
+            const jsonresponse=await response.json();
+            
+            console.log(jsonresponse);
+            
+            if(jsonresponse.errors){
+                cleanValidationErrors();
+                jsonresponse.errors.forEach(error => {
+                
+                    serverValidation(error);
+                });
+            }else{
+                console.log(jsonresponse.formstatus);
+            }
+    
+        }catch(error){
+            
+            console.error(error);
+        }
     }
 }
 
