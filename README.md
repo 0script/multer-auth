@@ -5,13 +5,16 @@
 * [Features](#features)  
 * [Setup](#setup)  
 ## About the project  
->nodejs authentification with multipart forms include a profile picture.  
+>nodejs authentification system .  
 ## Technologies  
-* **tech1**  
-* **tech2**  
-* **tech3**  
+* **html**  
+* **css**  
+* **javascript**  
+* **pug**  
+* **nodejs**
+* **mongodb**  
 ## Features  
-* can ***feature1***  
+*   ***form validation***  
 * can ***feature2***
 
 ## Setup
@@ -19,4 +22,7 @@ short setup description
 ```shell  
 #setup shell cmd  
 $git clone git@github...  
+$cd multer-auth/
+$npm install  #install required pkg
+$
 ```

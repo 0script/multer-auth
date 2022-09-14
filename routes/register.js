@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var { check , validationResult }=require('express-validator');
 
+const usermodel=require('./usermodel');
+
 /* multer setting */
 const multer=require('multer');
 const storage = multer.diskStorage({
@@ -56,7 +58,24 @@ router.post('/',upload.single('profiles'),validationchain,(req, res, next)=>{
     }else{
         jsontext='{"formstatus":"valid","errors":[]}';
         const jsonobj=JSON.parse(jsontext);
+
+        const newuser=new usermodel.User({
+            username: req.body.name,
+            email:req.body.email,
+            phone:req.body.phone,
+            password:req.body.password,
+            picture:'nopic'
+        });
+
+        newuser.save()
+            .then(newuser=>{
+                console.log(newuser)
+            }).catch(err=>{
+                console.log('Error while saving object : '+err);
+            });
+
         res.end(JSON.stringify(jsonobj));
     }
 });
+
 module.exports = router;
